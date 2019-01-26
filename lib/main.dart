@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 List<CameraDescription> cameras;
 
@@ -52,8 +54,34 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  void _takePicturePressed() {
+  void _takePicturePressed() {}
 
+  String timestamp() => DateTime.now().millisecondsSinceEpoch.toString();
+
+  Future<String> _takePicture() async {
+    if (!_controller.value.isInitialized) {
+      print("Controller is not initialized");
+      return null;
+    }
+
+    final Directory extDir = await getApplicationDocumentsDirectory();
+    final String photoDir = '${extDir.path}/Photos/image_test';
+    await Directory(photoDir).create(recursive: true);
+    final String filePath = '$photoDir/${timestamp()}.jpg';
+
+    if (_controller.value.isTakingPicture) {
+      print("Currently already taking a picture");
+      return null;
+    }
+
+    try {
+      await _controller.takePicture(filePath);
+    } on CameraException catch (e) {
+      print("camera exception occured: $e");
+      return null;
+    }
+
+    return filePath;
   }
 
   @override
@@ -87,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
