@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 
-void main() => runApp(MyApp());
+List<CameraDescription> cameras;
+
+Future<void> main() async {
+  cameras = await availableCameras();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -25,6 +31,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  CameraController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = CameraController(cameras[0], ResolutionPreset.medium);
+    _controller.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
