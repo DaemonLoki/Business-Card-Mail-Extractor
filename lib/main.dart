@@ -52,23 +52,39 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  void _takePicturePressed() {
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (!_controller.value.isInitialized) {
+      return Center(child: Text("Controller is not yet initialized!"));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: CameraPreview(_controller),
             ),
-            Text(
-              'test',
-              style: Theme.of(context).textTheme.display1,
-            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Center(
+                child: RaisedButton.icon(
+                  icon: Icon(Icons.camera),
+                  label: Text("Take Picture"),
+                  onPressed: _takePicturePressed,
+                ),
+              ),
+            )
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
