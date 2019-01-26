@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _takePicturePressed() {
     _takePicture().then((String filePath) {
       if (mounted) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ImageDetail()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ImageDetail(filePath)));
       }
     });
   }

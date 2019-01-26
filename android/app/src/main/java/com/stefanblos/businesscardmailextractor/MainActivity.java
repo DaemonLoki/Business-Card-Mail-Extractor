@@ -1,4 +1,4 @@
-package com.example.businesscardmailextractor;
+package com.stefanblos.businesscardmailextractor;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
