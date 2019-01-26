@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'image_detail.dart';
 
 List<CameraDescription> cameras;
 
@@ -54,7 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  void _takePicturePressed() {}
+  void _takePicturePressed() {
+    _takePicture().then((String filePath) {
+      if (mounted) {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ImageDetail()));
+      }
+    });
+  }
 
   String timestamp() => DateTime.now().millisecondsSinceEpoch.toString();
 
