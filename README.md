@@ -5,7 +5,7 @@ This project was created to demonstrate the use of MLKit in Flutter.
 You can find the blog post where I describe the project in more detail [here](https://medium.com/p/8039ec66b6a/edit).
 
 In case you want to try this out for yourself you need to create an account for Firebase and create a project there.
-This is very well documented [here](https://firebase.google.com/docs/flutter/setup).
+This is very well documented [here](https://medium.com/flutter-community/flutter-mlkit-8039ec66b6a).
 
 This project uses the following Flutter packages:
 
